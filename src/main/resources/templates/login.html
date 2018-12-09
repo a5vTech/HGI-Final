@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Log ind</title>
+    <th:block th:include="fragments/head :: headInclude"/>
+</head>
+<body>
+
+<div class="container-fluid outer-box">
+    <div class="row">
+        <div class="login-box col-md-4">
+            <div class="login-header">
+                <div class="row">
+                    <img class="col-md-2 logo" src="/images/hgi.png" alt="">
+                    <h3 class="col-md-10 company">HGI's Vikar system</h3>
+                </div>
+            </div>
+            <div class="login-content">
+                <form method="post" action="/login">
+                    <div class="row username-row">
+                        <label class="username-label col-md-12">Brugernavn:</label>
+                        <input class="username-input col-md-12" name="username" value="instructor@hgi.dk"/>
+                    </div>
+                    <div class="row password-row">
+                        <label class="password-label col-md-12">Adgangskode:</label>
+                        <input  type="password" class="password-input col-md-12" name="password" value="1234"/>
+                    </div>
+                    <div class="row">
+                        <button class="login-button" type="submit">Log ind</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

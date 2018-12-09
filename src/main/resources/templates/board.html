@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <th:block th:include="fragments/head :: headInclude"/>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="container">
+    <div class="row">
+        <h1 class="col-md-12 text-center board-header">Opslagstavle</h1>
+    </div>
+    <div class="container">
+            <div class="row search-row col-md-1 offset-md-9">
+                <input type="text" class="search-box" id="search-box" onkeyup="searchFunction()" placeholder="Søg"/>
+            </div><br/>
+        <!--Header row-->
+        <div class="container">
+            <div class="row text-center board-row-header">
+                <div class="col-md-2">
+                    <p class="first-row-item">Aktivitet</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Dato</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Tid</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Sted</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Forespørger</p>
+                </div>
+            </div>
+        </div>
+
+        <!--Request list-->
+        <div class="container" id="request-list">
+            <div class="hover-effect board-row" th:each="userRequest : ${userRequestList}">
+                <a th:href="@{'/request/'+ ${userRequest.getId()}} ">
+                    <div class="row text-center board-row-inner">
+                        <p class="col-md-2 board-request-text" th:text="${userRequest.getRequest().getActivity()}">Trampolin</p>
+                        <p class="col-md-2 board-request-text" th:text="${#strings.substring(userRequest.getRequest().getDate(),8,10)} + '-' +${#strings.substring(userRequest.getRequest().getDate(),5,7)} + '-' + ${#strings.substring(userRequest.getRequest().getDate(),0,4)}">23/12-2018</p>
+                        <p class="col-md-2 board-request-text" th:text="${userRequest.getRequest().getTime()}">10.45</p>
+                        <p class="col-md-3 board-request-text" th:text="${userRequest.getRequest().getLocation()}">Hal 3</p>
+                        <p class="col-md-3 board-request-text" th:text="${userRequest.getUser().getFirstName()} + ' '  +${userRequest.getUser().getLastName()}">Karsten Kristensen</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

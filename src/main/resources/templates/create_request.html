@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Efterspørgsel</title>
+    <th:block th:include="fragments/head :: headInclude"/>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="container">
+    <div class="row">
+        <h1 class="request-header col-md-7 text-center">Opret efterspørgsel</h1>
+    </div>
+    <div class="container">
+        <form method="post" action="/createRequest">
+            <div class="container col-md-7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Aktivitet:</label>
+                        <input class="request-input col" type="text" th:field="${userRequest.request.activity}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Dato:</label>
+                        <input class="request-input col" type="date" th:field="${userRequest.request.date}" id="date" placeholder="mm / dd / åååå"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Tid:</label>
+                        <input class="request-input col" type="text" th:field="${userRequest.request.time}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Sted:</label>
+                        <input class="request-input col" type="text" th:field="${userRequest.request.location}"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Telefon:</label>
+                        <input class="request-input col" type="text"  max="8" maxlength="8" onkeypress="validatePhoneNumber(event)" th:field="${userRequest.user.phoneNumber}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Stilling:</label>
+                        <select class="request-input" th:field="${userRequest.wantedRole}">
+                            <option value="">Vælg</option>
+                            <option value="Instruktør">Instruktør</option>
+                            <option value="Hjælpe instruktør">Hjælpe instruktør</option>
+                            <option value="Vikar">Vikar</option>
+                            <option value="Bestyrelse">Bestyrelses medlem</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container request-box-container col-md-9">
+                <div class="row">
+                    <div class="col notes-box">
+                        <div class="row">
+                            <label class="request-label request-box-label">Noter:</label>
+                        </div>
+                        <div class="row">
+                            <textarea class="request-input request-box col" th:field="${userRequest.request.note}"></textarea>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <label class="request-label request-box-label">Vedhæftede filer:</label>
+                        </div>
+                        <div class="row">
+                            <textarea class="request-input request-box col"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row button-row">
+                    <button type="submit" class="ok-button request-button">Opret</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<!-- credit: https://codepen.io/tutsplus/pen/KMWqRr -->
+
+</body>
+</html>

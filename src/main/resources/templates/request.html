@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Efterspørgsel</title>
+    <th:block th:include="fragments/head :: headInclude"/>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="container">
+    <div class="row">
+        <h1 class="request-header col-md-7 text-center">Efterspørgsel</h1>
+    </div>
+    <div class="container">
+        <div class="container col-md-7">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="request-label col-md-3">Aktivitet:</label>
+                    <input class="request-input col" type="text" th:value="${userRequest.request.activity}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="request-label col-md-3">Dato:</label>
+                    <input class="request-input col" th:value="${#strings.substring(userRequest.getRequest().getDate(),8,10)} + '-' +${#strings.substring(userRequest.getRequest().getDate(),5,7)} + '-' + ${#strings.substring(userRequest.getRequest().getDate(),0,4)}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="request-label col-md-3">Tid:</label>
+                    <input class="request-input col" type="text" th:value="${userRequest.request.time}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="request-label col-md-3">Sted:</label>
+                    <input class="request-input col" type="text" th:value="${userRequest.request.location}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="request-label col-md-3">Efterspørger:</label>
+                    <input class="request-input col" type="text" th:value="${userRequest.getUser().getFirstName()} + ' ' + ${userRequest.getUser().getLastName()}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="request-label col-md-3">Telefon:</label>
+                    <input class="request-input col" type="text" th:value="${userRequest.request.phone}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="request-label col-md-3">Stilling:</label>
+                    <input class="request-input col" type="text" th:value="${userRequest.wantedRole}"/>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container request-box-container col-md-9">
+            <div class="row">
+                <div class="col notes-box">
+                    <div class="row">
+                        <label class="request-label request-box-label">Noter:</label>
+                    </div>
+                    <div class="row">
+                        <textarea class="request-input request-box col"></textarea>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <label class="request-label request-box-label">Vedhæftede filer:</label>
+                    </div>
+                    <div class="row">
+                        <textarea class="request-input request-box col"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row button-row">
+                <button class="ok-button request-button">Accepter</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>
