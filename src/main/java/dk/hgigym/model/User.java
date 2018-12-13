@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,8 +18,6 @@ public class User {
     private String role;
     private Boolean enabled;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    public Set<UserRequest> userRequests = new HashSet<>();
 
     public User() {
     }
@@ -81,11 +80,4 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Set<UserRequest> getUserRequests() {
-        return userRequests;
-    }
-
-    public void setUserRequests(Set<UserRequest> userRequests) {
-        this.userRequests = userRequests;
-    }
 }

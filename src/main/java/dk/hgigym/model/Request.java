@@ -1,14 +1,6 @@
 package dk.hgigym.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Date 04. dec. 2018
@@ -24,8 +16,11 @@ public class Request {
     private String location;
     private String phone;
     private String note;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "request")
-    public Set<UserRequest> userRequests = new HashSet<>();
+    private String wantedRole;
+    @OneToOne
+    private User requester;
+    @OneToOne
+    private User assignee;
 
 
 
@@ -73,7 +68,21 @@ public class Request {
         this.time = time;
     }
 
+    public User getRequester() {
+        return requester;
+    }
 
+    public void setRequester(User requester) {
+        this.requester = requester;
+    }
+
+    public User getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(User assignee) {
+        this.assignee = assignee;
+    }
 
     public String getLocation() {
         return location;
@@ -99,11 +108,11 @@ public class Request {
         this.note = note;
     }
 
-    public Set<UserRequest> getUserRequests() {
-        return userRequests;
+    public String getWantedRole() {
+        return wantedRole;
     }
 
-    public void setUserRequests(Set<UserRequest> userRequests) {
-        this.userRequests = userRequests;
+    public void setWantedRole(String wantedRole) {
+        this.wantedRole = wantedRole;
     }
 }

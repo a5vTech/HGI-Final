@@ -1,10 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>Efterspørgsel</title>
+    <th:block th:include="fragments/head :: headInclude"/>
+    <link rel="stylesheet" href="../../../../../../../../../../Desktop/src/main/resources/static/style/style.css">
 </head>
 <body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="container">
+    <div class="row">
+        <h1 class="request-header col-md-7 text-center">Rediger efterspørgsel</h1>
+    </div>
+    <div class="container">
+        <form method="post" action="/request/edit">
+            <div class="container col-md-7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Aktivitet:</label>
+                        <input class="request-input col" type="text" th:field="${request.activity}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Dato:</label>
+                        <input class="request-input col" type="date" th:field="${request.date}" id="date" placeholder="mm / dd / åååå"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Tid:</label>
+                        <input class="request-input col" type="text" th:field="${request.time}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Sted:</label>
+                        <input class="request-input col" type="text" th:field="${request.location}"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Telefon:</label>
+                        <input class="request-input col" type="text"  max="8" maxlength="8" onkeypress="validatePhoneNumber(event)" th:field="${request.phone}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Stilling:</label>
+                        <select class="request-input" th:field="${request.wantedRole}">
+                            <option value="">Vælg</option>
+                            <option value="Instruktør">Instruktør</option>
+                            <option value="Hjælpe instruktør">Hjælpe instruktør</option>
+                            <option value="Vikar">Vikar</option>
+                            <option value="Bestyrelse">Bestyrelses medlem</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container request-box-container col-md-9">
+                <div class="row">
+                    <div class="col notes-box">
+                        <div class="row">
+                            <label class="request-label request-box-label">Noter:</label>
+                        </div>
+                        <div class="row">
+                            <textarea class="request-input request-box col" th:field="${request.note}"></textarea>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <label class="request-label request-box-label">Vedhæftede filer:</label>
+                        </div>
+                        <div class="row">
+                            <textarea class="request-input request-box col"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input name="requester" type="text" th:value="${requester}" hidden="hidden"/>
+            <input name="assignee" type="text" th:value="${assignee}" hidden="hidden"/>
+            <input type="text" th:field="${request.id}" hidden="hidden"/>
+            <div class="container">
+                <div class="row button-row">
+                    <div class="col-md-6">
+                        <button name="delete-request" type="submit" value="Slet" class="remove-button btn btn-danger">Slet</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="ok-button request-button">Opdater</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>
 
 </body>
 </html>

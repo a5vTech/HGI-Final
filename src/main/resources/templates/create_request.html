@@ -4,6 +4,8 @@
     <meta charset="UTF-8"/>
     <title>Efterspørgsel</title>
     <th:block th:include="fragments/head :: headInclude"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.js"></script>
 </head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
@@ -18,44 +20,53 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label class="request-label col-md-3">Aktivitet:</label>
-                        <input class="request-input col" type="text" th:field="${userRequest.request.activity}"/>
+                        <input class="request-input col" type="text" th:field="${request.activity}" required/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="request-label col-md-3">Dato:</label>
-                        <input class="request-input col" type="date" th:field="${userRequest.request.date}" id="date" placeholder="mm / dd / åååå"/>
+                        <input class="request-input col" type="date" th:field="${request.date}" id="date" placeholder="mm / dd / åååå" required/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="request-label col-md-3">Tid:</label>
-                        <input class="request-input col" type="text" th:field="${userRequest.request.time}"/>
+                        <input class="request-input col" type="text" th:field="${request.time}" required/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="request-label col-md-3">Sted:</label>
-                        <input class="request-input col" type="text" th:field="${userRequest.request.location}"/>
+                        <input class="request-input col" type="text" th:field="${request.location}" required/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12">
                         <label class="request-label col-md-3">Telefon:</label>
-                        <input class="request-input col" type="text"  max="8" maxlength="8" onkeypress="validatePhoneNumber(event)" th:field="${userRequest.user.phoneNumber}"/>
+                        <input class="request-input col" type="text"  max="8" maxlength="8" onkeypress="validatePhoneNumber(event)" th:field="${request.phone}" required/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="request-label col-md-3">Stilling:</label>
-                        <select class="request-input" th:field="${userRequest.wantedRole}">
+                        <select class="request-input" th:field="${request.wantedRole}" required>
                             <option value="">Vælg</option>
                             <option value="Instruktør">Instruktør</option>
                             <option value="Hjælpe instruktør">Hjælpe instruktør</option>
                             <option value="Vikar">Vikar</option>
                             <option value="Bestyrelse">Bestyrelses medlem</option>
                         </select>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Send mail til:</label>
+                        <select id="select-to" class="mail-picker" style="display: none" name="mailingList"></select>
                     </div>
                 </div>
             </div>
@@ -67,7 +78,7 @@
                             <label class="request-label request-box-label">Noter:</label>
                         </div>
                         <div class="row">
-                            <textarea class="request-input request-box col" th:field="${userRequest.request.note}"></textarea>
+                            <textarea class="request-input request-box col" th:field="${request.note}"></textarea>
                         </div>
                     </div>
                     <div class="col">
@@ -90,8 +101,74 @@
     </div>
 
 </div>
+<script>
+    $.ajax({
+        url: '/api/getmailinglist',
+        type: 'GET',
 
-<!-- credit: https://codepen.io/tutsplus/pen/KMWqRr -->
+        error: function(err) { console.log(err); },
 
+        success: function(options) {
+            console.log(options);
+            var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
+                '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
+
+            $('#select-to').selectize({
+                persist: false,
+                maxItems: null,
+                valueField: 'email',
+                labelField: 'name',
+                searchField: ['name', 'email'],
+                options: options,
+                plugins: ['remove_button'],
+                render: {
+                    item: function(item, escape) {
+                        return '<div>' +
+                            (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '') +
+                            (item.email ? '<span class="email">&lt;' + escape(item.email) + '&gt;</span>' : '') +
+                            '</div>';
+                    },
+                    option: function(item, escape) {
+                        var label = item.name || item.email;
+                        var caption = item.name ? item.email : null;
+                        return '<div>' +
+                            '<span class="label">' + escape(label) + '</span>' +
+                            (caption ? '<span class="caption">&lt;' + escape(caption) + '&gt;</span>' : '') +
+                            '</div>';
+                    }
+                },
+                createFilter: function(input) {
+                    var match, regex;
+
+                    // email@address.com
+                    regex = new RegExp('^' + REGEX_EMAIL + '$', 'i');
+                    match = input.match(regex);
+                    if (match) return !this.options.hasOwnProperty(match[0]);
+
+                    // name <email@address.com>
+                    regex = new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i');
+                    match = input.match(regex);
+                    if (match) return !this.options.hasOwnProperty(match[2]);
+
+                    return false;
+                },
+                create: function(input) {
+                    if ((new RegExp('^' + REGEX_EMAIL + '$', 'i')).test(input)) {
+                        return {email: input};
+                    }
+                    var match = input.match(new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i'));
+                    if (match) {
+                        return {
+                            email : match[2],
+                            name  : $.trim(match[1])
+                        };
+                    }
+                    alert('Invalid email address.');
+                    return false;
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

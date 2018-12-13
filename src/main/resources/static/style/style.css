@@ -261,8 +261,8 @@ a:hover{
     text-decoration: none;
 }
 
-.board-row:hover .board-request-text {
-    color: #d27c11;
+.board-row:hover {
+    background-color: #ece3c9;
 }
 
 .request-header {
@@ -278,6 +278,7 @@ a:hover{
     margin: 4px;
     height: 35px;
     padding: 5px;
+    outline: none;
 }
 
 .request-label {
@@ -315,6 +316,26 @@ textarea {
     color: #fff;
     border: none;
     font-size: 20px;
+    cursor: pointer;
+}
+
+.ok-button:hover {
+    background-color: #62bb62;
+}
+
+.update-button {
+    padding: 10px 20px;
+    background-color: #6dc56d;
+    border-radius: 5px;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    margin-right: 100px;
+    cursor: pointer;
+}
+
+.update-button:hover {
+    background-color: #62bb62;
 }
 
 .board-header {
@@ -325,6 +346,7 @@ textarea {
 .button-row {
     float: right;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .board-row {
@@ -359,3 +381,73 @@ textarea {
     right: -160px;
     padding: 3px 3px 3px 5px;
 }
+
+.remove-button {
+    margin-left: 30px;
+    padding: 10px 20px;
+    background-color: #C82333;
+    border-radius: 5px;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+}
+
+/*JESPER CSS*/
+
+
+.center-div{
+    margin: 0 auto;
+}
+
+.name{
+
+}
+
+.email{
+
+}
+
+.caption{
+    background-color: bisque;
+    font-size: 12px;
+}
+
+
+
+
+/*TAKEN FROM SELECTIZE DEFAULT*/
+
+.selectize-control.multi .selectize-input [data-value] {
+    background-color: #ded9dc;
+}
+.selectize-control.multi .selectize-input [data-value].active {
+    background-color: #ded9dc;
+    color: black;
+}
+
+.selectize-dropdown {
+    max-width: 100%;
+}
+
+.selectize-control {
+    margin: 4px;
+    padding: 0;
+    display: inline-flex;
+    width: 71%;
+    float: right;
+}
+
+.selectize-input {
+    border: solid 1px grey !important;
+    outline: none;
+}
+
+.settings-password-label {
+    padding-right: 0;
+    font-size: 16px;
+}
+
+
+
+
+

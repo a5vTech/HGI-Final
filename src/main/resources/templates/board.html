@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Opslagstavle</title>
     <th:block th:include="fragments/head :: headInclude"/>
+    <th:block th:include="fragments/to_top :: to_top"/>
 </head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
@@ -39,19 +40,18 @@
 
         <!--Request list-->
         <div class="container" id="request-list">
-            <div class="hover-effect board-row" th:each="userRequest : ${userRequestList}">
-                <a th:href="@{'/request/'+ ${userRequest.getId()}} ">
+            <div class="hover-effect board-row" th:each="request : ${requestList}">
+                <a th:href="@{'/request/'+ ${request.getId()}+ '?accept'}">
                     <div class="row text-center board-row-inner">
-                        <p class="col-md-2 board-request-text" th:text="${userRequest.getRequest().getActivity()}">Trampolin</p>
-                        <p class="col-md-2 board-request-text" th:text="${#strings.substring(userRequest.getRequest().getDate(),8,10)} + '-' +${#strings.substring(userRequest.getRequest().getDate(),5,7)} + '-' + ${#strings.substring(userRequest.getRequest().getDate(),0,4)}">23/12-2018</p>
-                        <p class="col-md-2 board-request-text" th:text="${userRequest.getRequest().getTime()}">10.45</p>
-                        <p class="col-md-3 board-request-text" th:text="${userRequest.getRequest().getLocation()}">Hal 3</p>
-                        <p class="col-md-3 board-request-text" th:text="${userRequest.getUser().getFirstName()} + ' '  +${userRequest.getUser().getLastName()}">Karsten Kristensen</p>
+                        <p class="col-md-2 board-request-text" th:text="${request.getActivity()}">Trampolin</p>
+                        <p class="col-md-2 board-request-text" th:text="${#strings.substring(request.getDate(),8,10)} + '-' +${#strings.substring(request.getDate(),5,7)} + '-' + ${#strings.substring(request.getDate(),0,4)}">23/12-2018</p>
+                        <p class="col-md-2 board-request-text" th:text="${request.getTime()}">10.45</p>
+                        <p class="col-md-3 board-request-text" th:text="${request.getLocation()}">Hal 3</p>
+                        <p class="col-md-3 board-request-text" th:text="${request.requester.getFirstName()} + ' '  +${request.requester.getLastName()}">Karsten Kristensen</p>
                     </div>
                 </a>
             </div>
         </div>
-
     </div>
 
 </div>

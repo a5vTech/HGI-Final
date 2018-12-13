@@ -18,6 +18,9 @@
                     <a class="nav-link" href="/board">Opslagstavle</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/myPage">Min side</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/createRequest">Opret efterspørgsel</a>
                 </li>
 
@@ -29,7 +32,8 @@
                 </span>
                     <div class="dropdown-menu nav-dropdown dropdown-menu-right " id="navDropdownMenu"
                          aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" th:href="'/'+${#strings.toLowerCase(#strings.substring(#authentication.getAuthorities(),6,#strings.length(#authentication.getAuthorities())-1))}+'/settings'">Indstillinger</a>
+                        <!--<a class="dropdown-item" th:href="'/'+${#strings.toLowerCase(#strings.substring(#authentication.getAuthorities(),6,#strings.length(#authentication.getAuthorities())-1))}+'/settings'">Indstillinger</a>-->
+                        <a class="dropdown-item" href="/settings">Indstillinger</a>
                         <a class="dropdown-item" href="/logout">Log ud</a>
                     </div>
                 </li>

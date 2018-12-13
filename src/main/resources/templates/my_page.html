@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Min side</title>
+    <th:block th:include="fragments/head :: headInclude"/>
+    <th:block th:include="fragments/to_top :: to_top"/>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="container">
+    <div class="row">
+        <h1 class="col-md-12 text-center board-header">Min side</h1>
+        <!--<div class="row search-row col-md-1 offset-md-9">-->
+            <!--<input type="text" class="search-box" id="search-box" onkeyup="searchFunction()" placeholder="Søg"/>-->
+        <!--</div><br/>-->
+    </div>
+
+
+    <div class="row">
+        <h3 class="col-md-12 text-center">Mine efterspørgsler</h3>
+    </div>
+    <div class="container">
+
+        <!--Header row-->
+        <div class="container">
+            <div class="row text-center board-row-header">
+                <div class="col-md-2">
+                    <p class="first-row-item">Aktivitet</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Dato</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Tid</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Sted</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Accepteret af</p>
+                </div>
+            </div>
+        </div>
+
+        <!--Request list-->
+        <div class="container" id="request-list">
+            <div class="hover-effect board-row" th:each="myRequest : ${myRequestsList}">
+                <a th:href="@{'/request/edit/'+ ${myRequest.getId()} + '?update'} ">
+                    <div class="row text-center board-row-inner">
+                        <p class="col-md-2 board-request-text" th:text="${myRequest.getActivity()}">Trampolin</p>
+                        <p class="col-md-2 board-request-text" th:text="${#strings.substring(myRequest.getDate(),8,10)} + '-' +${#strings.substring(myRequest.getDate(),5,7)} + '-' + ${#strings.substring(myRequest.getDate(),0,4)}">23/12-2018</p>
+                        <p class="col-md-2 board-request-text" th:text="${myRequest.getTime()}">10.45</p>
+                        <p class="col-md-3 board-request-text" th:text="${myRequest.getLocation()}">Hal 3</p>
+                        <p class="col-md-3 board-request-text" th:text="${myRequest.assignee != null} ? ${myRequest.assignee.getFirstName()} + ' ' +${myRequest.assignee.getLastName()} : 'Ingen'"></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <div class="row">
+
+        <h3 class="col-md-12 text-center">Accepterede efterspørgsler</h3>
+    </div>
+    <div class="container">
+        <!--Header row-->
+        <div class="container">
+            <div class="row text-center board-row-header">
+                <div class="col-md-2">
+                    <p class="first-row-item">Aktivitet</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Dato</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Tid</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Sted</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Forespørger</p>
+                </div>
+            </div>
+        </div>
+
+        <!--Request list-->
+        <div class="container" id="request-list2">
+            <div class="hover-effect board-row" th:each="request : ${acceptedRequestsList}">
+                <a th:href="@{'/request/'+ ${request.getId()}} ">
+                    <div class="row text-center board-row-inner">
+                        <p class="col-md-2 board-request-text" th:text="${request.getActivity()}">Trampolin</p>
+                        <p class="col-md-2 board-request-text" th:text="${#strings.substring(request.getDate(),8,10)} + '-' +${#strings.substring(request.getDate(),5,7)} + '-' + ${#strings.substring(request.getDate(),0,4)}">23/12-2018</p>
+                        <p class="col-md-2 board-request-text" th:text="${request.getTime()}">10.45</p>
+                        <p class="col-md-3 board-request-text" th:text="${request.getLocation()}">Hal 3</p>
+                        <p class="col-md-3 board-request-text" th:text="${request.requester.getFirstName()} + ' '  +${request.requester.getLastName()}">Karsten Kristensen</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>
