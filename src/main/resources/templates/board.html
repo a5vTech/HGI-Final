@@ -43,7 +43,7 @@
             <div class="hover-effect board-row" th:each="request : ${requestList}">
                 <a th:href="@{'/request/'+ ${request.getId()}+ '?accept'}">
                     <div class="row text-center board-row-inner">
-                        <p class="col-md-2 board-request-text" th:text="${request.getActivity()}">Trampolin</p>
+                        <p class="col-md-2 board-request-text truncate" th:text="${request.getActivity()}">Trampolin</p>
                         <p class="col-md-2 board-request-text" th:text="${#strings.substring(request.getDate(),8,10)} + '-' +${#strings.substring(request.getDate(),5,7)} + '-' + ${#strings.substring(request.getDate(),0,4)}">23/12-2018</p>
                         <p class="col-md-2 board-request-text" th:text="${request.getTime()}">10.45</p>
                         <p class="col-md-3 board-request-text" th:text="${request.getLocation()}">Hal 3</p>
@@ -55,7 +55,17 @@
     </div>
 
 </div>
-
-
+<script>
+    $(document).ready(function() {
+        $('.truncate').each(function(i, obj) {
+            var length = 15;
+            var string = obj.innerHTML;
+            if(string.length > length){
+                var truncatedString = string.substring(0,length) + "...";
+                obj.innerHTML = truncatedString;
+            }
+        });
+    });
+</script>
 </body>
 </html>

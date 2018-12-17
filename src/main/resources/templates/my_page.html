@@ -11,18 +11,13 @@
 
 <div class="container">
     <div class="row">
-        <h1 class="col-md-12 text-center board-header">Min side</h1>
-        <!--<div class="row search-row col-md-1 offset-md-9">-->
-            <!--<input type="text" class="search-box" id="search-box" onkeyup="searchFunction()" placeholder="Søg"/>-->
-        <!--</div><br/>-->
+        <h3 class="col-md-12 text-center board-header">Mine efterspørgsler</h3>
     </div>
 
-
-    <div class="row">
-        <h3 class="col-md-12 text-center">Mine efterspørgsler</h3>
-    </div>
     <div class="container">
-
+        <div class="row search-row col-md-1 offset-md-9">
+            <input type="text" class="search-box" id="search-box" onkeyup="searchFunction()" placeholder="Søg"/>
+        </div><br/>
         <!--Header row-->
         <div class="container">
             <div class="row text-center board-row-header">
@@ -49,10 +44,10 @@
             <div class="hover-effect board-row" th:each="myRequest : ${myRequestsList}">
                 <a th:href="@{'/request/edit/'+ ${myRequest.getId()} + '?update'} ">
                     <div class="row text-center board-row-inner">
-                        <p class="col-md-2 board-request-text" th:text="${myRequest.getActivity()}">Trampolin</p>
+                        <p class="col-md-2 board-request-text truncate" th:text="${myRequest.getActivity()}">Trampolin</p>
                         <p class="col-md-2 board-request-text" th:text="${#strings.substring(myRequest.getDate(),8,10)} + '-' +${#strings.substring(myRequest.getDate(),5,7)} + '-' + ${#strings.substring(myRequest.getDate(),0,4)}">23/12-2018</p>
                         <p class="col-md-2 board-request-text" th:text="${myRequest.getTime()}">10.45</p>
-                        <p class="col-md-3 board-request-text" th:text="${myRequest.getLocation()}">Hal 3</p>
+                        <p class="col-md-3 board-request-text truncate2" th:text="${myRequest.getLocation()}">Hal 3</p>
                         <p class="col-md-3 board-request-text" th:text="${myRequest.assignee != null} ? ${myRequest.assignee.getFirstName()} + ' ' +${myRequest.assignee.getLastName()} : 'Ingen'"></p>
                     </div>
                 </a>
@@ -60,13 +55,13 @@
         </div>
     </div>
     <br/>
-    <br/>
-    <br/>
     <div class="row">
-
-        <h3 class="col-md-12 text-center">Accepterede efterspørgsler</h3>
+        <h3 class="col-md-12 text-center board-header">Accepterede efterspørgsler</h3>
     </div>
     <div class="container">
+        <div class="row search-row col-md-1 offset-md-9">
+            <input type="text" class="search-box" id="search-box2" onkeyup="searchFunction2()" placeholder="Søg"/>
+        </div><br/>
         <!--Header row-->
         <div class="container">
             <div class="row text-center board-row-header">
@@ -93,10 +88,10 @@
             <div class="hover-effect board-row" th:each="request : ${acceptedRequestsList}">
                 <a th:href="@{'/request/'+ ${request.getId()}} ">
                     <div class="row text-center board-row-inner">
-                        <p class="col-md-2 board-request-text" th:text="${request.getActivity()}">Trampolin</p>
+                        <p class="col-md-2 board-request-text truncate" th:text="${request.getActivity()}">Trampolin</p>
                         <p class="col-md-2 board-request-text" th:text="${#strings.substring(request.getDate(),8,10)} + '-' +${#strings.substring(request.getDate(),5,7)} + '-' + ${#strings.substring(request.getDate(),0,4)}">23/12-2018</p>
                         <p class="col-md-2 board-request-text" th:text="${request.getTime()}">10.45</p>
-                        <p class="col-md-3 board-request-text" th:text="${request.getLocation()}">Hal 3</p>
+                        <p class="col-md-3 board-request-text truncate2" th:text="${request.getLocation()}">Hal 3</p>
                         <p class="col-md-3 board-request-text" th:text="${request.requester.getFirstName()} + ' '  +${request.requester.getLastName()}">Karsten Kristensen</p>
                     </div>
                 </a>
@@ -107,6 +102,25 @@
 
 </div>
 
-
+<script>
+    $(document).ready(function() {
+        $('.truncate').each(function(i, obj) {
+            var length = 15;
+            var string = obj.innerHTML;
+            if(string.length > length){
+                var truncatedString = string.substring(0,length) + "...";
+                obj.innerHTML = truncatedString;
+            }
+        });
+        $('.truncate2').each(function(i, obj) {
+            var length = 25;
+            var string = obj.innerHTML;
+            if(string.length > length){
+                var truncatedString = string.substring(0,length) + "...";
+                obj.innerHTML = truncatedString;
+            }
+        });
+    });
+</script>
 </body>
 </html>

@@ -1,6 +1,9 @@
 package dk.hgigym.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
+import java.io.File;
 
 /**
  * Date 04. dec. 2018
@@ -21,8 +24,6 @@ public class Request {
     private User requester;
     @OneToOne
     private User assignee;
-
-
 
     public Request() {
     }
@@ -115,4 +116,5 @@ public class Request {
     public void setWantedRole(String wantedRole) {
         this.wantedRole = wantedRole;
     }
+
 }

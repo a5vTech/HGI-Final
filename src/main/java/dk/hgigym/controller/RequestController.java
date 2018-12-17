@@ -10,6 +10,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import sun.misc.IOUtils;
+
+import javax.mail.Multipart;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 /**
  * Date 04. dec. 2018
@@ -32,29 +39,33 @@ public class RequestController {
     }
 
     @PostMapping("/createRequest")
-    public String createRequest(@ModelAttribute Request request, @RequestParam String mailingList) {
+    public String createRequest(@ModelAttribute Request request, @RequestParam(defaultValue = "{{NONE}}") String mailingList) {
         User currentuser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         request.setRequester(currentuser);
         requestRepository.save(request);
-        String[] mailList = mailingList.split(",");
 
-        Thread sendMails = new Thread(() -> {
-            String sendTo = "";
-            for (int i = 0; i < mailList.length; i++) {
-                sendTo = mailList[i];
-                try {
-                    mailSender.sendMail(sendTo, "Ny efterspørgsel", String.format("Hej, jeg har oprettet en ny efterspørgsel og tænkte...\n" +
-                            "At det kunne være noget for dig...\n" +
-                            "Her er et link så du kan se om det skulle være noget: http://localhost:8080/request/%s", request.getId()));
-                } catch (Exception e) {
-                    e.printStackTrace();
+        if(!mailingList.equals("{{NONE}}")){
+            String[] mailList = mailingList.split(",");
+            Thread sendMails = new Thread(() -> {
+                String sendTo = "";
+                for (int i = 0; i < mailList.length; i++) {
+                    User user = userRepository.findByEmail(mailList[i]);
+                    sendTo = mailList[i];
+                    try {
+                        mailSender.sendMail(sendTo, "Ny efterspørgsel", String.format("Hej " + user.getFirstName() + " " + user.getLastName() +
+                                "\nDer er oprettet en ny efterspørgsel.\n" +
+                                "Har du mulighed for at arbejde der?\n" +
+                                "For at se dato, tid og sted, tjek følgende link.\n" +
+                                "Link: http://app.hgigym.dk/request/%s?accept\nDu skal være logget ind på systemet før du klikker på linket", request.getId()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
+//
+            });
+            sendMails.start();
 
-        });
-        sendMails.start();
-
-
+        }
         return "redirect:/board";
     }
 

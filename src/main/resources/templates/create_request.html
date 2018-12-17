@@ -15,7 +15,7 @@
         <h1 class="request-header col-md-7 text-center">Opret efterspørgsel</h1>
     </div>
     <div class="container">
-        <form method="post" action="/createRequest">
+        <form method="post" action="/createRequest" enctype="multipart/form-data">
             <div class="container col-md-7">
                 <div class="row">
                     <div class="col-md-12">
@@ -67,6 +67,12 @@
                     <div class="col-md-12">
                         <label class="request-label col-md-3">Send mail til:</label>
                         <select id="select-to" class="mail-picker" style="display: none" name="mailingList"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="request-label col-md-3">Tilføj filer:</label>
+                        <input class="choose-file-box" type="file" name="file"multiple disabled/>
                     </div>
                 </div>
             </div>

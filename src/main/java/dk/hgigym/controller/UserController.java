@@ -6,6 +6,7 @@ import dk.hgigym.repository.RequestRepository;
 import dk.hgigym.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,10 @@ public class UserController {
     private RequestRepository requestRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
 
 
@@ -54,7 +59,13 @@ public class UserController {
 
     @PostMapping("/settings")
     public String settingsPost(@ModelAttribute User user) {
+        if(user.getPassword() != null){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        user.setEnabled(true);
         userRepository.save(user);
         return "redirect:/settings";
     }
+
+
 }

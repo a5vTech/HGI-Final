@@ -25,12 +25,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         if (roles.contains("ROLE_INSTRUCTOR")) {
             httpServletResponse.sendRedirect("/board");
         } else if (roles.contains("ROLE_ROLE2")) {
-            httpServletResponse.sendRedirect("redirectlink");
+            httpServletResponse.sendRedirect("/board");
         } else if (roles.contains("ROLE_ROLE3")) {
-            httpServletResponse.sendRedirect("redirectlink");
+            httpServletResponse.sendRedirect("/board");
 
         }else {
-                httpServletResponse.sendRedirect("/logifn");
+            httpServletResponse.sendRedirect("/board");
             }
         }
 

@@ -17,43 +17,43 @@
             <div class="row">
                 <div class="col-md-12">
                     <label class="request-label col-md-3">Aktivitet:</label>
-                    <input class="request-input col" type="text" th:value="${request.activity}"/>
+                    <input class="request-input col" type="text" th:value="${request.activity}" readonly="readonly"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <label class="request-label col-md-3">Dato:</label>
-                    <input class="request-input col" th:value="${#strings.substring(request.getDate(),8,10)} + '-' +${#strings.substring(request.getDate(),5,7)} + '-' + ${#strings.substring(request.getDate(),0,4)}"/>
+                    <input class="request-input col" th:value="${#strings.substring(request.getDate(),8,10)} + '-' +${#strings.substring(request.getDate(),5,7)} + '-' + ${#strings.substring(request.getDate(),0,4)}" readonly="readonly"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <label class="request-label col-md-3">Tid:</label>
-                    <input class="request-input col" type="text" th:value="${request.time}"/>
+                    <input class="request-input col" type="text" th:value="${request.time}" readonly="readonly"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <label class="request-label col-md-3">Sted:</label>
-                    <input class="request-input col" type="text" th:value="${request.location}"/>
+                    <input class="request-input col" type="text" th:value="${request.location}" readonly="readonly"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <label class="request-label col-md-3">Efterspørger:</label>
-                    <input class="request-input col" type="text" th:value="${request.requester.getFirstName()} + ' ' + ${request.requester.getLastName()}"/>
+                    <input class="request-input col" type="text" th:value="${request.requester.getFirstName()} + ' ' + ${request.requester.getLastName()}" readonly="readonly"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <label class="request-label col-md-3">Telefon:</label>
-                    <input class="request-input col" type="text" th:value="${request.phone}"/>
+                    <input class="request-input col" type="text" th:value="${request.phone}" readonly="readonly"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <label class="request-label col-md-3">Stilling:</label>
-                    <input class="request-input col" type="text" th:value="${request.wantedRole}"/>
+                    <input class="request-input col" type="text" th:value="${request.wantedRole}" readonly="readonly"/>
 
                 </div>
             </div>
@@ -66,7 +66,7 @@
                         <label class="request-label request-box-label">Noter:</label>
                     </div>
                     <div class="row">
-                        <textarea class="request-input request-box col" th:text="${request.note}"></textarea>
+                        <textarea class="request-input request-box col" th:text="${request.note}" readonly="readonly"></textarea>
                     </div>
                 </div>
                 <div class="col">
@@ -74,7 +74,7 @@
                         <label class="request-label request-box-label">Vedhæftede filer:</label>
                     </div>
                     <div class="row">
-                        <textarea class="request-input request-box col"></textarea>
+                        <textarea class="request-input request-box col" readonly="readonly"></textarea>
                     </div>
                 </div>
             </div>

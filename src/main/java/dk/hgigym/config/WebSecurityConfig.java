@@ -34,8 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/login").permitAll()
-                .antMatchers("/**").permitAll()
                 .antMatchers("/logout").permitAll()
+                .antMatchers("/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -44,16 +44,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
-                .logoutSuccessUrl("/login?logout").permitAll()
-                .and()
-                .exceptionHandling().accessDeniedPage("/denied");
+                .logoutSuccessUrl("/login?logout").permitAll();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers( "/static/**", "/style/**", "/js/**","/fonts/**","/images/**");
+                .antMatchers("/static/**", "/style/**", "/js/**", "/fonts/**", "/images/**");
     }
 
 

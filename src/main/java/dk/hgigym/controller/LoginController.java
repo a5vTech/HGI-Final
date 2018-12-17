@@ -33,14 +33,15 @@ public class LoginController {
     @ResponseBody
     @GetMapping("/createTestUser")
     public String createTestUser() throws Exception {
+        User user = userRepository.findByEmail("instructor@hgi.dk");
 //        User user = new User();
-//        user.setEmail("mikk065y@stud.kea.dk");
-//        user.setFirstName("Jesper");
+//        user.setEmail("janni@jensen-dahm.dk");
+//        user.setFirstName("Janni");
 //        user.setLastName("TESTER");
 //        user.setRole("ROLE_INSTRUCTOR");
 //        user.setEnabled(true);
-//        user.setPassword(passwordEncoder.encode("1234"));
-//        userRepository.save(user);
+        user.setPassword(passwordEncoder.encode("1234"));
+        userRepository.save(user);
 
 //        mailSender.sendMail("jesper2604@gmail.com", "Test ", "This is message");
 //        mailSender.sendMail("mikkelkoksen@gmail.com", "Test ", "This is message");
